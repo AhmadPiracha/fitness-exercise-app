@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import ExerciseCard from './ExerciseCard';
 import BodyPart from './BodyPart';
 import { Stack } from '@mui/system';
-const Features = ({ data, bodyParts, setBodyPart, bodyPart }) => {
+const Features = ({ data, isBodyParts, setBodyPart, bodyPart }) => {
   return (
     <Stack direction="row" 
     sx={{ gap: { lg: '50px', xs: '25px' } }} flexWrap="wrap" justifyContent="center">
@@ -15,7 +15,7 @@ const Features = ({ data, bodyParts, setBodyPart, bodyPart }) => {
         title={item.id || item}
         m="0 40px"
       >
-        {bodyParts ? <BodyPart item={item} setBodyPart={setBodyPart} bodyPart={bodyPart} /> : <ExerciseCard exercise={item} />}
+        {isBodyParts ? <BodyPart item={item} setBodyPart={setBodyPart} bodyPart={bodyPart} /> : <ExerciseCard exercise={item} />}
 
       </Box>
 

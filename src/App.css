@@ -1,6 +1,8 @@
 body {
     font-family: 'Josefin Sans';
     background-color: #FFFAFB;
+    /* max-width: 100%; */
+    /* overflow-x: hidden; */
 }
 
 * {

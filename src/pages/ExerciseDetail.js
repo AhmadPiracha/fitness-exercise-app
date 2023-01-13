@@ -11,18 +11,27 @@ import SimilarExercises from '../components/SimilarExercises'
 const ExerciseDetail = () => {
   const [exerciseDetail, setExerciseDetail] = useState({});
   const [exerciseVideos, setExerciseVideos] = useState([]);
+  const [equipmentExercises, setEquipmentExercises] = useState([]);
+  const [targetMuscleExercises, setTargetMuscleExercises] = useState([]);
+
   const { id } = useParams();
 
   useEffect(() => {
     const fetchExerciseDetail = async () => {
-      const fetchExerciseData = 'https://exercisedb.p.rapidapi.com';
+      const ExerciseDbURL = 'https://exercisedb.p.rapidapi.com';
       const YouTubeSearchURL = 'https://youtube-search-and-download.p.rapidapi.com';
 
-      const exerciseDetailData = await fetchData(`${fetchExerciseData}/exercises/exercise/${id}`, exerciseOptions);
+      const exerciseDetailData = await fetchData(`${ExerciseDbURL}/exercises/exercise/${id}`, exerciseOptions);
       setExerciseDetail(exerciseDetailData);
 
       const exerciseVideoData = await fetchData(`${YouTubeSearchURL}/search?query=${exerciseDetailData.name}`, youtubeOptions);
       setExerciseVideos(exerciseVideoData.contents);
+
+      const targetMuscleExerciseData = await fetchData(`${ExerciseDbURL}/exercises/target/${exerciseDetailData.target}`, exerciseOptions);
+      setTargetMuscleExercises(targetMuscleExerciseData);
+
+      const equipmentExerciseData = await fetchData(`${ExerciseDbURL}/exercises/equipment/${exerciseDetailData.equipment}`, exerciseOptions);
+      setEquipmentExercises(equipmentExerciseData);
 
     };
     fetchExerciseDetail();
@@ -32,8 +41,9 @@ const ExerciseDetail = () => {
   return (
     <Box>
       <Details exerciseDetail={exerciseDetail} />
-      <ExerciseVideo exerciseVideos={exerciseVideos} name={exerciseDetail.name}  />
-      <SimilarExercises />
+      <ExerciseVideo exerciseVideos={exerciseVideos} name={exerciseDetail.name} />
+      <SimilarExercises equipmentExercises={equipmentExercises}
+        targetMuscleExercises={targetMuscleExercises} />
     </Box>
   )
 }

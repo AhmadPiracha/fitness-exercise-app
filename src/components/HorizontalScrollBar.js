@@ -4,7 +4,6 @@ import { Box, Typography } from '@mui/material';
 
 import ExerciseCard from './ExerciseCard';
 import BodyPart from './BodyPart';
-// import { Stack } from '@mui/system';
 import RightArrowIcon from '../assets/icons/right-arrow.png';
 import LeftArrowIcon from '../assets/icons/left-arrow.png';
 
@@ -28,32 +27,23 @@ const RightArrow = () => {
   );
 };
 
-const HorizontalScrollbar = ({ data, bodyParts, setBodyPart, bodyPart }) => (
-
-  <ScrollMenu
-
-
-  LeftArrow={LeftArrow}
-   RightArrow={RightArrow}
-  >
-   {data.map((item) => (
-
+const HorizontalScrollbar = ({ data, isBodyParts, setBodyPart, bodyPart }) => (
+  <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} sx={{
+    flexDirection: { lg: 'row' },
+    gap: { lg: '110px', xs: '0px' }
+  }}
+    justifyContent="flex-start" flexWrap="wrap" alignItems="center">
+    {data.map((item) => (
       <Box
         key={item.id || item}
         itemID={item.id || item}
         title={item.id || item}
         m="0 40px"
       >
-        {bodyParts ? <BodyPart item={item} setBodyPart={setBodyPart} bodyPart={bodyPart} /> : <ExerciseCard exercise={item} />}
-      </Box> 
-
-
-    ))} 
-
-
+        {isBodyParts ? <BodyPart item={item} setBodyPart={setBodyPart} bodyPart={bodyPart} /> : <ExerciseCard exercise={item} />}
+      </Box>
+    ))}
   </ScrollMenu>
-
- 
 );
 
 export default HorizontalScrollbar;
